@@ -4,7 +4,7 @@
   "description": "Inbox smart contract",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Julian Nicholls <juliannicholls29@gmail.com>",
   "license": "ISC",
