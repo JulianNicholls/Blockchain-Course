@@ -9,6 +9,9 @@
   "author": "Julian Nicholls <juliannicholls29@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "solc": "^0.4.23"
+    "ganache-cli": "^6.1.0",
+    "mocha": "^5.1.1",
+    "solc": "^0.4.23",
+    "web3": "1.0.0-beta.26"
   }
 }
