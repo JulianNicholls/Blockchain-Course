@@ -6,7 +6,11 @@ by Stephen Grider.
 
 ## Progress
 
-Starting tests in Section 2
+Starting deployment in Section 2
+
+## Security
+
+The deploy script is not included, for security of my seed words and Infura API ID. Although I will never use either of them for a real app, you can never be too careful.
 
 ### Differences
 

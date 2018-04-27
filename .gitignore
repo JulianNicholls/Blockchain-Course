@@ -17,3 +17,6 @@ yarn-debug.log*
 yarn-error.log*
 
 public/dist/
+
+metamask*
+deploy.js
