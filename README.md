@@ -6,7 +6,7 @@ by Stephen Grider.
 
 ## Progress
 
-Starting deployment in Section 2
+Section 3 - beginning to test Lottery contract.
 
 ## Security
 
