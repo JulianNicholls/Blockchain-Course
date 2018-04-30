@@ -25,4 +25,110 @@ describe('Lottery', () => {
   it('contract deployed OK', () => {
     assert.ok(lottery.options.address);
   });
+
+  it('starts with no players', async () => {
+    const players = await lottery.methods.getPlayers().call();
+
+    assert.equal(players.length, 0);
+  });
+
+  it('adds a single player via enter() with sufficient ether, return via getPlayers()', async () => {
+    await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei('0.01', 'ether')
+    });
+
+    const players = await lottery.methods.getPlayers().call();
+
+    assert.equal(players.length, 1);
+    assert.equal(players[0], accounts[0]);
+  });
+
+  it('players(idx) returns correct player', async () => {
+    await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei('0.01', 'ether')
+    });
+
+    const player0 = await lottery.methods.players(0).call();
+
+    assert.equal(player0, accounts[0]);
+  });
+
+  it('adds multiple players', async () => {
+    await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei('0.01', 'ether')
+    });
+
+    await lottery.methods.enter().send({
+      from: accounts[1],
+      value: web3.utils.toWei('0.01', 'ether')
+    });
+
+    await lottery.methods.enter().send({
+      from: accounts[2],
+      value: web3.utils.toWei('0.01', 'ether')
+    });
+
+    const players = await lottery.methods.getPlayers().call();
+
+    assert.equal(players.length, 3);
+    assert.equal(players[0], accounts[0]);
+    assert.equal(players[1], accounts[1]);
+    assert.equal(players[2], accounts[2]);
+  });
+
+  it('rejects a player with INsufficient ether', async () => {
+    try {
+      await lottery.methods.enter().send({
+        from: accounts[0],
+        value: 200 // Not enough
+      });
+
+      assert(false); // Should NOT get here
+    } catch (err) {
+      assert(err); // Should get here
+    }
+  });
+
+  it('picks a winner successfully using manager', async () => {
+    // Needs at least one entrant, otherwise the modulo operation will fail
+    await lottery.methods.enter().send({
+      from: accounts[1],
+      value: web3.utils.toWei('2', 'ether')
+    });
+
+    // Store balance after entry
+    const initialBalance = await web3.eth.getBalance(accounts[1]);
+
+    await lottery.methods.pickWinner().send({ from: accounts[0] });
+
+    // Ensure that the money comes back
+    const finalBalance = await web3.eth.getBalance(accounts[1]);
+
+    assert(finalBalance - initialBalance > 1.95);
+
+    // Ensure the list is cleared out after picking a winner
+    const players = await lottery.methods.getPlayers().call();
+
+    assert.equal(players.length, 0);
+  });
+
+  it('rejects picking a winner by anyone else', async () => {
+    // Needs at least one entrant, otherwise the modulo operation will fail
+    // giving a potential false positive here
+    await lottery.methods.enter().send({
+      from: accounts[1],
+      value: web3.utils.toWei('0.01', 'ether')
+    });
+
+    try {
+      await lottery.methods.pickWinner().send({ from: accounts[1] });
+
+      assert(false);
+    } catch (err) {
+      assert(err);
+    }
+  });
 });
