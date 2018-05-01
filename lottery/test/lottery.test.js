@@ -93,7 +93,6 @@ describe('Lottery', () => {
   });
 
   it('picks a winner successfully using manager', async () => {
-    // Needs at least one entrant, otherwise the modulo operation will fail
     await lottery.methods.enter().send({
       from: accounts[1],
       value: web3.utils.toWei('2', 'ether')
@@ -107,7 +106,7 @@ describe('Lottery', () => {
     // Ensure that the money comes back
     const finalBalance = await web3.eth.getBalance(accounts[1]);
 
-    assert(finalBalance - initialBalance > 1.95);
+    assert(finalBalance - initialBalance > web3.utils.toWei('1.95', 'ether'));
 
     // Ensure the list is cleared out after picking a winner
     const players = await lottery.methods.getPlayers().call();
