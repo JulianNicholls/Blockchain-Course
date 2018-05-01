@@ -108,6 +108,12 @@ describe('Lottery', () => {
 
     assert(finalBalance - initialBalance > web3.utils.toWei('1.95', 'ether'));
 
+    // Check that the winner has been stored correctly
+
+    const winner = await lottery.methods.lastWinner().call();
+
+    assert(winner == accounts[1]);
+
     // Ensure the list is cleared out after picking a winner
     const players = await lottery.methods.getPlayers().call();
 

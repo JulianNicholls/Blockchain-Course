@@ -16,3 +16,9 @@ The deploy scripts are not included, for security of my seed words and Infura AP
 
 There will inevitably be differences between my code and Stephen's. I will
 point out the most relevant parts below.
+
+#### Lottery
+
+In the lottery app, I use `enterLottery()` instead of `onSubmit()` and `pickWinner()` instead of `onClick()`.
+
+I have implemented the lastWinner storage in my Lottery contract and use it in the lottery app.

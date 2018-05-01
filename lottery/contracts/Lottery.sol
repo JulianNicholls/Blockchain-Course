@@ -3,6 +3,7 @@ pragma solidity ^0.4.17;
 contract Lottery {
     address public manager;
     address[] public players;
+    address public lastWinner;
     
     constructor() public {
         manager = msg.sender;
@@ -23,6 +24,7 @@ contract Lottery {
         
         players[winner].transfer(address(this).balance);
         
+        lastWinner = players[winner];
         players = new address[](0);
     }
     
