@@ -6,11 +6,11 @@ by Stephen Grider.
 
 ## Progress
 
-Section 3 - beginning to test Lottery contract.
+Section 4 - Beginning Lottery App
 
 ## Security
 
-The deploy script is not included, for security of my seed words and Infura API ID. Although I will never use either of them for a real app, you can never be too careful.
+The deploy scripts are not included, for security of my seed words and Infura API ID. Although I will never use either of them for a real app, you can never be too careful.
 
 ### Differences
 
