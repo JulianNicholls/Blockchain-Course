@@ -13,20 +13,24 @@ class App extends React.Component {
     message: ''
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     web3.eth.getAccounts().then(console.log);
 
+    this.refresh();
+  }
+
+  refresh = async () => {
     const manager = await lottery.methods.manager().call();
     const players = await lottery.methods.getPlayers().call();
     const balance = await web3.eth.getBalance(lottery.options.address);
 
     this.setState(() => ({ manager, players, balance }));
-  }
+  };
 
   enterLottery = async event => {
     event.preventDefault();
 
-    this.setState({ message: 'Entering you. Waiting for response...' });
+    this.setState({ message: 'You are being entered. Waiting for response...' });
 
     const accounts = await web3.eth.getAccounts();
 
@@ -35,11 +39,13 @@ class App extends React.Component {
       value: web3.utils.toWei(this.state.value, 'ether')
     });
 
+    this.refresh();
+
     this.setState({ message: 'You have been entered.' });
   };
 
   pickWinner = async () => {
-    this.setState({ message: 'Picking a winner. Waiting for response...' });
+    this.setState({ message: 'A winner is being pickied. Waiting for response...' });
 
     const accounts = await web3.eth.getAccounts();
 
@@ -47,7 +53,9 @@ class App extends React.Component {
       from: accounts[0]
     });
 
-    this.setState({ message: 'A winner has been chosen' });
+    const winner = await lottery.methods.lastWinner().call();
+
+    this.setState({ message: `A winner has been chosen: ${winner}` });
   };
 
   render() {
@@ -84,7 +92,7 @@ class App extends React.Component {
         )}
 
         <hr />
-        <h5 className="status">{this.state.message}</h5>
+        <h4 className="status">{this.state.message}</h4>
       </div>
     );
   }
