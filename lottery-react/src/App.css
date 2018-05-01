@@ -11,3 +11,7 @@ body {
   width: 90vw;
   margin: 0 auto;
 }
+
+.status {
+  text-align: center;
+}
