@@ -4,7 +4,8 @@
   "description": "Inbox smart contract",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "deploy": "node deploy.js"
   },
   "author": "Julian Nicholls <juliannicholls29@gmail.com>",
   "license": "ISC",
