@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react';
 
 export default () => (
-  <Menu>
+  <Menu style={{ marginTop: '10px' }}>
     <Menu.Item>BlockStarter</Menu.Item>
 
     <Menu.Menu position="right">
