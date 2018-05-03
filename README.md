@@ -21,16 +21,16 @@ point out the most relevant parts below.
 
 In the tests which have the form
 
-````try {
-  await xxx.methods.xxx().send({
-    xxx: xxx,
-    xxx: xxx
-  });
+    try {
+      await xxx.methods.xxx().send({
+        xxx: xxx,
+        xxx: xxx
+      });
 
-  assert(false);
-} catch (err) {
-  assert(err)
-}```
+      assert(false);
+    } catch (err) {
+      assert(err)
+    }
 
 The `catch(err)` will always be entered even when the `assert(false)` is hit. A change is needed to the assert inside to `assert.equal(err.name, 'c')`.
 
@@ -44,8 +44,3 @@ I have implemented the lastWinner storage in my Lottery contract and use it in t
 
 I have used `contributors` and `contributorsCount` for contributors in the contract.
 The Request struct still has `approvals` and `approvalCount` though.
-````
-
-```
-
-```
