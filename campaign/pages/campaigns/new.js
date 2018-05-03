@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Message } from 'semantic-ui-react';
+import { Button, Form, Input, Message } from 'semantic-ui-react';
 
 import Layout from '../../components/Layout';
 import factory from '../../ethereum/factory';
@@ -8,7 +8,8 @@ import web3 from '../../ethereum/web3';
 class NewCampaign extends React.Component {
   state = {
     minimum: '',
-    errorMessage: ''
+    errorMessage: '',
+    busy: false
   };
 
   updateMinimum = event => {
@@ -20,6 +21,8 @@ class NewCampaign extends React.Component {
   createCampaign = async event => {
     event.preventDefault();
 
+    this.setState({ busy: true, errorMessage: '' });
+
     try {
       const accounts = await web3.eth.getAccounts();
 
@@ -30,6 +33,8 @@ class NewCampaign extends React.Component {
       console.log({ err });
       this.setState({ errorMessage: err.message });
     }
+
+    this.setState({ busy: false });
   };
 
   render() {
@@ -48,10 +53,12 @@ class NewCampaign extends React.Component {
           </Form.Field>
           <Message
             error
-            header="An error occurred"
+            header="An error has occurred"
             content={this.state.errorMessage}
           />
-          <Form.Button primary>Create</Form.Button>
+          <Button primary loading={this.state.busy}>
+            Create
+          </Button>
         </Form>
       </Layout>
     );
