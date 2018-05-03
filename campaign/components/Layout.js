@@ -1,5 +1,6 @@
 import React from 'react';
-import { Header } from 'semantic-ui-react';
+
+import Header from './Header';
 
 export default props => (
   <React.Fragment>
@@ -7,10 +8,7 @@ export default props => (
       rel="stylesheet"
       href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
     />
-    <header>
-      <h1>Header</h1>
-    </header>
+    <Header />
     {props.children}
-    <footer>Footer!</footer>
   </React.Fragment>
 );
