@@ -6,7 +6,7 @@ by Stephen Grider.
 
 ## Progress
 
-Section 4 - Beginning Lottery App
+Begining Section 5 - Real Projects
 
 ## Security
 
@@ -22,3 +22,7 @@ point out the most relevant parts below.
 In the lottery app, I use `enterLottery()` instead of `onSubmit()` and `pickWinner()` instead of `onClick()`.
 
 I have implemented the lastWinner storage in my Lottery contract and use it in the lottery app.
+
+#### Campaign
+
+I have used `contributors` and `contributorsCount` in the contract for contributors. The Request struct still has `approvals` and `approvalCount` though.

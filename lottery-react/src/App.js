@@ -45,7 +45,7 @@ class App extends React.Component {
   };
 
   pickWinner = async () => {
-    this.setState({ message: 'A winner is being pickied. Waiting for response...' });
+    this.setState({ message: 'A winner is being picked. Waiting for response...' });
 
     const accounts = await web3.eth.getAccounts();
 
@@ -54,6 +54,8 @@ class App extends React.Component {
     });
 
     const winner = await lottery.methods.lastWinner().call();
+
+    this.refresh();
 
     this.setState({ message: `A winner has been chosen: ${winner}` });
   };
