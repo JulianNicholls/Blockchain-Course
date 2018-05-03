@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default () => {
-  return <h1>New Campaign page</h1>;
+  return <h1>Campaign List</h1>;
 };
