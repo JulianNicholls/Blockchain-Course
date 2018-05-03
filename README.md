@@ -29,7 +29,7 @@ In the tests which have the form
 
       assert(false);
     } catch (err) {
-      assert(err)
+      assert(err);
     }
 
 The `catch(err)` will always be entered even when the `assert(false)` is hit. A change is needed to the assert inside to `assert.equal(err.name, 'c')`.
@@ -44,3 +44,4 @@ I have implemented the lastWinner storage in my Lottery contract and use it in t
 
 I have used `contributors` and `contributorsCount` for contributors in the contract.
 The Request struct still has `approvals` and `approvalCount` though.
+My finalise function is called `finaliseRequest()`.

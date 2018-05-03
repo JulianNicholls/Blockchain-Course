@@ -103,6 +103,116 @@ describe('Campaign', () => {
       assert.equal(err.name, 'c');
     }
   });
+
+  it('processes requests', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[0],
+      value: web3.utils.toWei('10', 'ether') // Plenty!
+    });
+
+    await campaign.methods
+      .createRequest('Buy Batteries', web3.utils.toWei('5', 'ether'), accounts[1])
+      .send({
+        from: accounts[0],
+        gas: 1000000
+      });
+
+    await campaign.methods.approveRequest(0).send({
+      from: accounts[0],
+      gas: 1000000
+    });
+
+    await campaign.methods.finaliseRequest(0).send({
+      from: accounts[0],
+      gas: 1000000
+    });
+
+    let balance = await web3.eth.getBalance(accounts[1]);
+    balance = web3.utils.fromWei(balance, 'ether');
+    balance = parseFloat(balance);
+
+    assert(balance > 104.9);
+  });
+
+  it('will not finalise insufficiently approved requests', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[0],
+      value: web3.utils.toWei('10', 'ether') // Plenty!
+    });
+
+    await campaign.methods
+      .createRequest('Buy Batteries', web3.utils.toWei('5', 'ether'), accounts[1])
+      .send({
+        from: accounts[0],
+        gas: 1000000
+      });
+
+    try {
+      await campaign.methods.finaliseRequest(0).send({
+        from: accounts[0],
+        gas: 1000000
+      });
+
+      assert(false);
+    } catch (err) {
+      assert.equal(err.name, 'c');
+    }
+  });
+
+  it('will not accept request approvals from other people', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[0],
+      value: web3.utils.toWei('10', 'ether') // Plenty!
+    });
+
+    await campaign.methods
+      .createRequest('Buy Batteries', web3.utils.toWei('5', 'ether'), accounts[1])
+      .send({
+        from: accounts[0],
+        gas: 1000000
+      });
+
+    try {
+      await campaign.methods.approveRequest(0).send({
+        from: accounts[2], // Not a contributor
+        gas: 1000000
+      });
+
+      assert(false);
+    } catch (err) {
+      assert.equal(err.name, 'c');
+    }
+  });
+
+  it('will not finalise requests made by other than the manager', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[0],
+      value: web3.utils.toWei('10', 'ether') // Plenty!
+    });
+
+    await campaign.methods
+      .createRequest('Buy Batteries', web3.utils.toWei('5', 'ether'), accounts[1])
+      .send({
+        from: accounts[0],
+        gas: 1000000
+      });
+
+    await campaign.methods.approveRequest(0).send({
+      from: accounts[0],
+      gas: 1000000
+    });
+
+    try {
+      await campaign.methods.finaliseRequest(0).send({
+        from: accounts[2],
+        gas: 1000000
+      });
+
+      assert(false);
+    } catch (err) {
+      assert.equal(err.name, 'c');
+    }
+  });
 });
 
 describe('CampaignFactory', () => {
