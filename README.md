@@ -17,6 +17,23 @@ The deploy scripts are not included, for security of my seed words and Infura AP
 There will inevitably be differences between my code and Stephen's. I will
 point out the most relevant parts below.
 
+#### Testing of failures
+
+In the tests which have the form
+
+````try {
+  await xxx.methods.xxx().send({
+    xxx: xxx,
+    xxx: xxx
+  });
+
+  assert(false);
+} catch (err) {
+  assert(err)
+}```
+
+The `catch(err)` will always be entered even when the `assert(false)` is hit. A change is needed to the assert inside to `assert.equal(err.name, 'c')`.
+
 #### Lottery
 
 In the lottery app, I use `enterLottery()` instead of `onSubmit()` and `pickWinner()` instead of `onClick()`.
@@ -25,4 +42,10 @@ I have implemented the lastWinner storage in my Lottery contract and use it in t
 
 #### Campaign
 
-I have used `contributors` and `contributorsCount` in the contract for contributors. The Request struct still has `approvals` and `approvalCount` though.
+I have used `contributors` and `contributorsCount` for contributors in the contract.
+The Request struct still has `approvals` and `approvalCount` though.
+````
+
+```
+
+```

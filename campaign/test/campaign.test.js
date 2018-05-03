@@ -41,6 +41,68 @@ describe('Campaign', () => {
   it('contract deployed OK', () => {
     assert.ok(campaign.options.address);
   });
+
+  it('has the correct manager', async () => {
+    const manager = await campaign.methods.manager().call();
+
+    assert.equal(manager, accounts[0]);
+  });
+
+  it('accepts valid contributions and adds contributor to list', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[1],
+      value: 100
+    });
+
+    const isContributor = await campaign.methods.contributors(accounts[1]).call();
+
+    assert(isContributor);
+  });
+
+  it('rejects INvalid (too small) contributions', async () => {
+    try {
+      await campaign.methods.contribute().send({
+        from: accounts[1],
+        value: 99 // Not enough
+      });
+
+      assert(false);
+    } catch (err) {
+      assert.equal(err.name, 'c');
+    }
+  });
+
+  it('allows a manager to make a payment request', async () => {
+    await campaign.methods
+      .createRequest('Buy Batteries', 100000, accounts[2])
+      .send({
+        from: accounts[0],
+        gas: 1000000
+      });
+
+    const thisReq = await campaign.methods.requests(0).call();
+
+    assert.equal(thisReq.description, 'Buy Batteries');
+    assert.equal(thisReq.value, 100000);
+    assert.equal(thisReq.recipient, accounts[2]);
+    assert(!thisReq.complete);
+    assert.equal(thisReq.approvalCount, 0);
+  });
+
+  it('rejects a payment request from another address', async () => {
+    try {
+      await campaign.methods
+        .createRequest('Buy Batteries', 100000, accounts[2])
+        .send({
+          from: accounts[1],
+          gas: 1000000
+        });
+
+      assert(false);
+    } catch (err) {
+      assert.equal(err.name, 'c');
+    }
+  });
 });
 
 describe('CampaignFactory', () => {

@@ -88,7 +88,7 @@ describe('Lottery', () => {
 
       assert(false); // Should NOT get here
     } catch (err) {
-      assert(err); // Should get here
+      assert.equal(err.name, 'c');
     }
   });
 
@@ -133,7 +133,7 @@ describe('Lottery', () => {
 
       assert(false);
     } catch (err) {
-      assert(err);
+      assert.equal(err.name, 'c');
     }
   });
 });
