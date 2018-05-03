@@ -1,6 +1,15 @@
 import Web3 from 'web3';
 
-export const mmProvider = window.web3.currentProvider;
-const web3 = new Web3(mmProvider);
+let provider;
 
-export default web3;
+if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
+  // Running in browser
+  provider = window.web3.currentProvider;
+} else {
+  // Running in Next / Node, or user is not running Metamask
+  provider = new Web3.providers.HttpProvider(
+    'https://rinkeby.infura.io/DpFnlYt9rqqxCDHY6dmr'
+  );
+}
+
+export default new Web3(provider);

@@ -1,5 +1,5 @@
 import web3 from './web3';
-import campaignFactory from './build/Campaign.json';
+import campaignFactory from './build/CampaignFactory.json';
 
 const address = '0x045FEBAA2e29cFE938701075e9b2B64a745FeCdf';
 const factory = new web3.eth.Contract(
