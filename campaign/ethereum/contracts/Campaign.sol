@@ -1,5 +1,6 @@
 pragma solidity ^0.4.17;
 
+// Contract to deploy campaigns
 contract CampaignFactory {
     address[] public deployedCampaings;
     
@@ -13,6 +14,7 @@ contract CampaignFactory {
     }
 }
 
+// Contract for Kickstarter-style campaigns
 contract Campaign {
     struct Request {
         string description;
@@ -48,11 +50,11 @@ contract Campaign {
     
     function createRequest(string description, uint value, address recipient) public restricted {
         Request memory req = Request({
-           description: description,
-           value: value,
-           recipient: recipient,
-           complete: false,
-           approvalCount: 0
+            description: description,
+            value: value,
+            recipient: recipient,
+            complete: false,
+            approvalCount: 0
         });
         
         // Alternative syntax: it's positional, so has potential problems.
