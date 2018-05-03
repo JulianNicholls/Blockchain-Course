@@ -25,7 +25,7 @@ class CampaignIndex extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <Layout title="Campaigns">
         <h2>Open Campaigns</h2>
         <Button
           floated="right"
