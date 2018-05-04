@@ -6,7 +6,7 @@ by Stephen Grider.
 
 ## Progress
 
-Begining Section 5 - Real Projects
+Section 5 - Campaign App, just finished initial campaign details page
 
 ## Security
 
@@ -21,18 +21,26 @@ point out the most relevant parts below.
 
 In the tests which have the form
 
-    try {
-      await xxx.methods.xxx().send({
-        xxx: xxx,
-        xxx: xxx
-      });
+    it('should fail xxx', () => {
+      try {
+        await xxx.methods.xxx().send({
+          xxx: xxx,
+          xxx: xxx
+        });
 
-      assert(false);
+        assert(false);
+      } catch (err) {
+        assert(err);
+      }
+    };
+
+The `catch(err)` will always be entered even when the `assert(false)` is hit, making the test
+null and void. A change is needed to the assert inside to `assert.equal(err.name, 'c')`.
+
+    ...
     } catch (err) {
-      assert(err);
+      assert.equal(err.name, 'c');
     }
-
-The `catch(err)` will always be entered even when the `assert(false)` is hit. A change is needed to the assert inside to `assert.equal(err.name, 'c')`.
 
 #### Lottery
 
@@ -42,6 +50,7 @@ I have implemented the lastWinner storage in my Lottery contract and use it in t
 
 #### Campaign
 
-I have used `contributors` and `contributorsCount` for contributors in the contract.
+I have used `contributors` and `contributorsCount` for contributors in the contract and
+subsequent summary page.
 The Request struct still has `approvals` and `approvalCount` though.
-My finalise function is called `finaliseRequest()`.
+My finalise function is called `finaliseRequest()` with an s.
