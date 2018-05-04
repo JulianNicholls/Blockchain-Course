@@ -51,6 +51,6 @@ I have implemented the lastWinner storage in my Lottery contract and use it in t
 #### Campaign
 
 I have used `contributors` and `contributorsCount` for contributors in the contract and
-subsequent summary page.
-The Request struct still has `approvals` and `approvalCount` though.
+subsequent summary page. The Request struct still has `approvals` and `approvalCount` though.
+
 My finalise function is called `finaliseRequest()` with an s.

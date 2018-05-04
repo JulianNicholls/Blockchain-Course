@@ -104,6 +104,58 @@ describe('Campaign', () => {
     }
   });
 
+  it('can return an accurate summary', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[0],
+      value: web3.utils.toWei('10', 'ether') // Plenty!
+    });
+
+    await campaign.methods.contribute().send({
+      from: accounts[2],
+      value: web3.utils.toWei('5', 'ether') // Plenty!
+    });
+
+    await campaign.methods
+      .createRequest('Buy Batteries', web3.utils.toWei('5', 'ether'), accounts[1])
+      .send({
+        from: accounts[0],
+        gas: 1000000
+      });
+
+    const summary = await campaign.methods.getSummary().call();
+
+    assert.equal(summary[0], 100); // Minimum contribution 100 wei
+    assert.equal(web3.utils.fromWei(summary[1], 'ether'), 15); // 15 ether contained
+    assert.equal(summary[2], 1); // 1 request
+    assert.equal(summary[3], 2); // 2 contributors
+    assert.equal(summary[4], accounts[0]); // Manager address
+  });
+
+  it('can return an accurate request count', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[0],
+      value: web3.utils.toWei('10', 'ether') // Plenty!
+    });
+
+    await campaign.methods
+      .createRequest('Buy Batteries', web3.utils.toWei('5', 'ether'), accounts[1])
+      .send({
+        from: accounts[0],
+        gas: 1000000
+      });
+
+    await campaign.methods
+      .createRequest('Buy Cases', web3.utils.toWei('6', 'ether'), accounts[1])
+      .send({
+        from: accounts[0],
+        gas: 1000000
+      });
+
+    const count = await campaign.methods.getRequestsCount().call();
+
+    assert.equal(count, 2); // 2 requests
+  });
+
   it('processes requests', async () => {
     await campaign.methods.contribute().send({
       from: accounts[0],
