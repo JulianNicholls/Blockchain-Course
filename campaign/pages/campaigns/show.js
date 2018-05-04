@@ -4,6 +4,7 @@ import { Card } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import campaignInterface from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
+import ContributeForm from '../../components/ContributeForm';
 
 class ShowCampaign extends React.Component {
   static async getInitialProps(props) {
@@ -78,6 +79,7 @@ class ShowCampaign extends React.Component {
           Campaign Details - <small>{this.props.address}</small>
         </h2>
         {this.renderSummary()}
+        <ContributeForm />
       </Layout>
     );
   }
