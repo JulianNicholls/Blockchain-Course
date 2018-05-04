@@ -4,6 +4,7 @@ import { Button, Form, Input, Message } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
+import { Router } from '../../routes';
 
 class NewCampaign extends React.Component {
   state = {
@@ -29,6 +30,8 @@ class NewCampaign extends React.Component {
       await factory.methods.createCampaign(this.state.minimum).send({
         from: accounts[0]
       });
+
+      Router.pushRoute('/'); // Show all campaigns
     } catch (err) {
       console.log({ err });
       this.setState({ errorMessage: err.message });
