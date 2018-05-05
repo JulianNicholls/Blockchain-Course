@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, CardHeader, Grid } from 'semantic-ui-react';
 
 import Layout from '../../components/Layout';
 import campaignInterface from '../../ethereum/campaign';
@@ -37,35 +37,37 @@ class ShowCampaign extends React.Component {
 
     const items = [
       {
-        header: manager,
+        header: (
+          <CardHeader title={manager}>
+            {`${manager.substring(0, 22)}`}&hellip;
+          </CardHeader>
+        ),
         meta: 'Address of Manager',
         description:
-          'The manager created this campaign and can create requests to withdraw money',
-        style: { overflowWrap: 'break-word' }
+          'The manager created this campaign and can make requests to withdraw money.'
       },
       {
         header: minContribution,
         meta: 'Minimum Contribution',
         description:
-          'The minimum amount in wei that must be contributed to the campaign to become a request approver'
+          'The minimum amount in wei that must be contributed to the campaign to become a request approver.'
       },
       {
         header: requests,
         meta: 'Number of Requests',
         description:
-          'A request asks to withdraw money from the campaign. Requests must be approved by a majority of contributors'
+          'A request asks to withdraw money from the campaign. Requests must be approved by the majority of contributors.'
       },
       {
         header: contributors,
         meta: 'Number of Contributors',
         description:
-          'The number of people who have already contributed to this campaign'
+          'The number of people who have already contributed to this campaign.'
       },
       {
-        header: web3.utils.fromWei(balance, 'ether'),
-        meta: 'Campaign Balance (ether)',
-        description:
-          'The total amount in ether of unused cntributions in the campaign'
+        header: `${web3.utils.fromWei(balance, 'ether')} ether`,
+        meta: 'Campaign Balance',
+        description: 'The total amount of unused contributions in the campaign.'
       }
     ];
 
@@ -73,13 +75,19 @@ class ShowCampaign extends React.Component {
   }
 
   render() {
+    const { address } = this.props;
+
     return (
       <Layout title="Show Campaign">
         <h2>
-          Campaign Details - <small>{this.props.address}</small>
+          Campaign Details - <small>{address}</small>
         </h2>
-        {this.renderSummary()}
-        <ContributeForm />
+        <Grid>
+          <Grid.Column width={11}>{this.renderSummary()}</Grid.Column>
+          <Grid.Column width={5}>
+            <ContributeForm address={address} />
+          </Grid.Column>
+        </Grid>
       </Layout>
     );
   }
