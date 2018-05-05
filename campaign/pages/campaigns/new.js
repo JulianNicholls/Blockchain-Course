@@ -41,25 +41,23 @@ class NewCampaign extends React.Component {
   };
 
   render() {
+    const { minimum, errorMessage, busy } = this.state;
+
     return (
       <Layout title="New Campaign">
         <h2>Create a campaign</h2>
-        <Form error={this.state.errorMessage !== ''} onSubmit={this.createCampaign}>
+        <Form error={errorMessage !== ''} onSubmit={this.createCampaign}>
           <Form.Field>
             <label>Minimum Contribution</label>
             <Input
               label="wei"
               labelPosition="right"
-              value={this.state.minimum}
+              value={minimum}
               onChange={this.updateMinimum}
             />
           </Form.Field>
-          <Message
-            error
-            header="An error has occurred"
-            content={this.state.errorMessage}
-          />
-          <Button primary loading={this.state.busy}>
+          <Message error header="An error has occurred" content={errorMessage} />
+          <Button primary loading={busy} disabled={minimum === ''}>
             Create
           </Button>
         </Form>

@@ -12,12 +12,12 @@ Section 5 - Campaign App, just finished initial campaign details page
 
 The deploy scripts are not included, for security of my seed words and Infura API ID. Although I will never use either of them for a real app, you can never be too careful.
 
-### Differences
+## Differences
 
 There will inevitably be differences between my code and Stephen's. I will
 point out the most relevant parts below.
 
-#### Testing of failures
+### Testing of failures
 
 In the tests which have the form
 
@@ -42,15 +42,28 @@ null and void. A change is needed to the assert inside to `assert.equal(err.name
       assert.equal(err.name, 'c');
     }
 
-#### Lottery
+### General
 
-In the lottery app, I use `enterLottery()` instead of `onSubmit()` and `pickWinner()` instead of `onClick()`.
+I prefer to use names like `enterLottery()` or `createCampaign()` instead of `onSubmit()`,
+and names like `updateAmount()` instead of `onChange()`.
+
+I have done a lot of object destructuring.
+
+### Lottery Contract
 
 I have implemented the lastWinner storage in my Lottery contract and use it in the lottery app.
 
-#### Campaign
+### Campaign
+
+#### Contract
 
 I have used `contributors` and `contributorsCount` for contributors in the contract and
 subsequent summary page. The Request struct still has `approvals` and `approvalCount` though.
 
 My finalise function is called `finaliseRequest()` with an s.
+
+#### App
+
+I am validating the numeric inputs to only allow digits and the decimal point in. I feel that
+there's no point in allowing bad input and then only catching it when it fails to convert to a
+number later on.
