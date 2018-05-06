@@ -10,7 +10,8 @@ Section 5 - Campaign App, just finished initial campaign details page
 
 ## Security
 
-The deploy scripts are not included, for security of my seed words and Infura API ID. Although I will never use either of them for a real app, you can never be too careful.
+The deploy scripts are not included, for security of my seed words. Although I will never use
+them for a real app, you can never be too careful.
 
 ## Differences
 
@@ -48,6 +49,10 @@ I prefer to use names like `enterLottery()` or `createCampaign()` instead of `on
 and names like `updateAmount()` instead of `onChange()`.
 
 I have done a lot of object destructuring.
+
+#### Layout
+
+My Layout component takes a title attribute to set the title in the head section.
 
 ### Lottery Contract
 
