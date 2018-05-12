@@ -1,18 +1,15 @@
-import React from 'react';
-import { Button, Card, CardHeader, Grid } from 'semantic-ui-react';
+import React from "react";
+import { Button, Card, CardHeader, Grid } from "semantic-ui-react";
 
-import Layout from '../../components/Layout';
-import campaignInterface from '../../ethereum/campaign';
-import web3 from '../../ethereum/web3';
-import ContributeForm from '../../components/ContributeForm';
-import { Link } from '../../routes';
+import Layout from "../../components/Layout";
+import campaignInterface from "../../ethereum/campaign";
+import web3 from "../../ethereum/web3";
+import ContributeForm from "../../components/ContributeForm";
+import { Link } from "../../routes";
 
 class ShowCampaign extends React.Component {
   static async getInitialProps(props) {
-    const {
-      query: { address }
-    } = props;
-
+    const { address } = props.query;
     const campaign = campaignInterface(address);
     const summary = await campaign.methods.getSummary().call();
 
@@ -24,7 +21,14 @@ class ShowCampaign extends React.Component {
       4: manager
     } = summary;
 
-    return { minContribution, balance, requests, contributors, manager, address };
+    return {
+      minContribution,
+      balance,
+      requests,
+      contributors,
+      manager,
+      address
+    };
   }
 
   renderSummary() {
@@ -43,32 +47,32 @@ class ShowCampaign extends React.Component {
             {`${manager.substring(0, 22)}`}&hellip;
           </CardHeader>
         ),
-        meta: 'Address of Manager',
+        meta: "Address of Manager",
         description:
-          'The manager created this campaign and can make requests to withdraw money.'
+          "The manager created this campaign and can make requests to withdraw money."
       },
       {
         header: minContribution,
-        meta: 'Minimum Contribution',
+        meta: "Minimum Contribution",
         description:
-          'The minimum amount in wei that must be contributed to the campaign to become a request approver.'
+          "The minimum amount in wei that must be contributed to the campaign to become a request approver."
       },
       {
         header: requests,
-        meta: 'Number of Requests',
+        meta: "Number of Requests",
         description:
-          'A request asks to withdraw money from the campaign. Requests must be approved by the majority of contributors.'
+          "A request asks to withdraw money from the campaign. Requests must be approved by the majority of contributors."
       },
       {
         header: contributors,
-        meta: 'Number of Contributors',
+        meta: "Number of Contributors",
         description:
-          'The number of people who have already contributed to this campaign.'
+          "The number of people who have already contributed to this campaign."
       },
       {
-        header: `${web3.utils.fromWei(balance, 'ether')} ether`,
-        meta: 'Campaign Balance',
-        description: 'The total amount of unused contributions in the campaign.'
+        header: `${web3.utils.fromWei(balance, "ether")} ether`,
+        meta: "Campaign Balance",
+        description: "The total amount of unused contributions in the campaign."
       }
     ];
 
