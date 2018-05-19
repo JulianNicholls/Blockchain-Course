@@ -49,7 +49,7 @@ class ShowRequests extends React.Component {
             <HeaderCell>Amount (ether)</HeaderCell>
             <HeaderCell>Recipient</HeaderCell>
             <HeaderCell>Approval Count</HeaderCell>
-            <HeaderCell>Actions</HeaderCell>
+            <HeaderCell colSpan="2">Actions</HeaderCell>
           </Row>
         </Header>
         <Body>{this.renderRows()}</Body>

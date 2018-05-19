@@ -15,6 +15,16 @@ class RequestRow extends React.Component {
     });
   };
 
+  finaliseRequest = async event => {
+    const { address, id } = this.props;
+    const campaign = campaignInterface(address);
+    const accounts = await web3.eth.getAccounts();
+
+    await campaign.methods.finaliseRequest(id).send({
+      from: accounts[0]
+    });
+  };
+
   render() {
     const { Row, Cell } = Table;
     const {
@@ -28,13 +38,18 @@ class RequestRow extends React.Component {
         <Cell>{id + 1}</Cell>
         <Cell>{description}</Cell>
         <Cell>{web3.utils.fromWei(value, 'ether')}</Cell>
-        <Cell>{recipient}</Cell>
+        <Cell title={recipient}>{`${recipient.substring(0, 10)}`}&hellip;</Cell>
         <Cell>
           {approvalCount}/{contributorsCount}
         </Cell>
         <Cell>
           <Button color="green" basic onClick={this.approveRequest}>
             Approve
+          </Button>
+        </Cell>
+        <Cell>
+          <Button color="teal" basic onClick={this.finaliseRequest}>
+            Finalise
           </Button>
         </Cell>
       </Row>
