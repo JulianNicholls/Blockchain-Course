@@ -53,9 +53,9 @@ class ShowCampaign extends React.Component {
       },
       {
         header: minContribution,
-        meta: "Minimum Contribution",
+        meta: "Minimum Contribution in wei",
         description:
-          "The minimum amount in wei that must be contributed to the campaign to become a request approver."
+          "The minimum amount that must be contributed to the campaign to become a request approver."
       },
       {
         header: requests,
@@ -81,6 +81,7 @@ class ShowCampaign extends React.Component {
 
   render() {
     const { address } = this.props;
+    const { Row, Column } = Grid;
 
     return (
       <Layout title="Show Campaign">
@@ -88,21 +89,21 @@ class ShowCampaign extends React.Component {
           Campaign Details - <small>{address}</small>
         </h2>
         <Grid>
-          <Grid.Row>
-            <Grid.Column width={11}>{this.renderSummary()}</Grid.Column>
-            <Grid.Column width={5}>
+          <Row>
+            <Column width={11}>{this.renderSummary()}</Column>
+            <Column width={5}>
               <ContributeForm address={address} />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
+            </Column>
+          </Row>
+          <Row>
+            <Column>
               <Link route={`/campaigns/${address}/requests`}>
                 <a>
                   <Button primary>Show Requests</Button>
                 </a>
               </Link>
-            </Grid.Column>
-          </Grid.Row>
+            </Column>
+          </Row>
         </Grid>
       </Layout>
     );
