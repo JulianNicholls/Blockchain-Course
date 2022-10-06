@@ -9,7 +9,7 @@
   "author": "Julian Nicholls <juliannicholls29@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "ganache-cli": "^6.1.0",
+    "ganache-cli": "^6.12.2",
     "mocha": "^5.1.1",
     "solc": "^0.4.23",
     "truffle-hdwallet-provider": "0.0.3",
