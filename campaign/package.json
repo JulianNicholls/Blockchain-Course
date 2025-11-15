@@ -13,7 +13,7 @@
     "fs-extra": "^6.0.0",
     "ganache-cli": "^6.12.2",
     "mocha": "^10.8.2",
-    "next": "^14.2.21",
+    "next": "^14.2.32",
     "next-routes": "^1.4.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -24,7 +24,7 @@
     "web3": "^1.0.0-beta.26"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "eslint": "^9.17.0",
     "eslint-plugin-flowtype": "^2.46.3",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
