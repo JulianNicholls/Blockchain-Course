@@ -7741,8 +7741,8 @@ write@^0.2.1:
     mkdirp "^0.5.1"
 
 ws@^8.17.1:
-  version "8.20.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.20.0.tgz#4cd9532358eba60bc863aad1623dfb045a4d4af8"
+  version "8.20.1"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.20.1.tgz#91a9ae2b312ccf98e0a85ec499b48cef45ab0ddb"
 
 xdg-basedir@^3.0.0:
   version "3.0.0"
